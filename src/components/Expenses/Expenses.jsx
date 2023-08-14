@@ -1,31 +1,31 @@
+import React, { useState } from "react";
+
 import ExpenseItem from "./ExpenseItem";
+import ExpensesFilter from "./ExpensesFilter";
 import Card from "../UI/Card";
 import "./Expenses.css"
 
 export default function Expenses({expenses}) {
+	const options = [2022, 2021, 2020, 2019];
+	const [selectedOption, setSelectedOption] = useState(options[0]);
+
 	return (
 		<Card className="expenses">
+			<ExpensesFilter 
+				selectedOption={selectedOption} 
+				setSelectedOption={setSelectedOption} 
+				options={options}
+			/>
 			<h2>Let's get started!</h2>
-			<ExpenseItem 
-				title={expenses[0].title} 
-				amount={expenses[0].amount}
-				date={expenses[0].date}
-			/>
-			<ExpenseItem 
-				title={expenses[1].title} 
-				amount={expenses[1].amount}
-				date={expenses[1].date}
-			/>
-			<ExpenseItem 
-				title={expenses[2].title} 
-				amount={expenses[2].amount}
-				date={expenses[2].date}
-			/>
-			<ExpenseItem 
-				title={expenses[3].title} 
-				amount={expenses[3].amount}
-				date={expenses[3].date}
-			/>
+			{expenses.filter(expense => (parseInt(selectedOption)===expense.date.getFullYear())).map((expense) => {
+				return (
+					<ExpenseItem 
+						title={expense.title} 
+						amount={expense.amount}
+						date={expense.date}
+					/>
+				)
+			})}
 		</Card>
 	)
 }
