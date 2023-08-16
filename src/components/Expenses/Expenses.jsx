@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import ExpenseItem from "./ExpenseItem";
+import ExpensesList from "./ExpensesList";
 import ExpensesFilter from "./ExpensesFilter";
 import Card from "../UI/Card";
 import "./Expenses.css"
@@ -17,15 +17,10 @@ export default function Expenses({expenses}) {
 				options={options}
 			/>
 			<h2>Let's get started!</h2>
-			{expenses.filter(expense => (parseInt(selectedOption)===expense.date.getFullYear())).map((expense) => {
-				return (
-					<ExpenseItem 
-						title={expense.title} 
-						amount={expense.amount}
-						date={expense.date}
-					/>
-				)
-			})}
+			<ExpensesList 
+				expenses={expenses} 
+				selectedOption={selectedOption} 
+			/>
 		</Card>
 	)
 }
